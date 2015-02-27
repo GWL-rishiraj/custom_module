@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+        <!-- 
+        Create a new view based on base.view_parter_from
+        base is the module which contains the code of the res.partner view form
+        view_parter_form is the xml ID of the view in addons/base/res/partner/partner_view.xml
+        -->
+        <record model="ir.ui.view" id="view_partner_form_add_text_field">
+            <field name="name">view.partner.form.add.text.field</field>
+            <field name="model">res.partner</field>
+            <!-- Inherits from base.view_partner_form -->
+            <field name="inherit_id" ref="base.view_partner_form"/>
+            <field name="arch" type="xml">
+                <!-- Add the textual field after the website field -->
+                <field name="name" position="attributes">
+			<attribute name="placeholder">Vendor Name</attribute>
+		</field>
+                <field name="category_id" position="attributes">
+			<attribute name="placeholder">Vendor Short Name </attribute>
+                        <attribute name="string">Vendor Short Name </attribute>
+		</field>
+                <label for="street" position="attributes">
+			<attribute name="string">Office Address</attribute>
+		</label>
+                <field name="city" position="after" style="width: 40%%" attrs="{'readonly': [('use_parent_address','=',True)]}">
+			<field name="place" string="Pin Code" placeholder="Place" style="width: 30%%" attrs="{'readonly': [('use_parent_address','=',True)]}"/>
+		</field>
+		<field name="city" position="attributes">
+			<attribute name="invisible">True</attribute>
+		</field>
+                <field name="zip" position="attributes">
+			<attribute name="invisible">True</attribute>
+		</field>
+                <field name="city" position="after">
+                	<field name="zip" string="Pin Code" placeholder="Pin Code" style="width: 30%%" attrs="{'readonly': [('use_parent_address','=',True)]}"/>
+            	</field>
+		<field name="zip" position="after">
+                	<field name="district" string="District" placeholder="District" style="width: 40%%" />
+            	</field>
+		<field name="mobile" position="attributes">
+			<attribute name="string">Contact Number</attribute>
+		</field>
+		<field name="mobile" position="after">
+                    <field name="vendor_office_contact_name" />
+                </field>
+		<group>
+			<group>
+                        	<label for="site_place" string="Site Address"/>
+                        	<div>
+					<field name="site_place" placeholder="Place" />
+					<field name="site_zip" placeholder="Pin Code"/>
+					<field name="site_district" placeholder="District"/>
+					<field name="site_state_id" placeholder="State"/>
+					<field name="site_country_id" placeholder="Country"/>
+				</div>
+			</group>
+                        <group>
+				<field name="site_phone"  />
+				<field name="site_fax" />
+				<field name="vendor_site_contact_name" />
+				<field name="site_mobile" />
+				<field name="site_email" />
+			</group>
+		</group>
+		
+		<xpath expr="/form/sheet/notebook/page[1]" position="after">
+			<page string="Vendor Registration Number">
+				<group>
+					<group>
+						<field name="Vendor_registration_number"/>
+						<field name="ecc" />
+						<field name="vendor_cst_tin" />
+						<field name="vendor_vat_tin" />
+						<field name="vendor_pan_no" />
+						<field name="vendor_st_no" />
+						<field name="vendor_tan" />
+					</group>
+				</group>
+			</page>
+			<page string="Bank Detail">
+				<group>
+					<group>
+						<field name="vendor_bank_detail"/>
+						<field name="vendor_account_number" />
+						<field name="vendor_bank_name" />
+						<field name="vendor_account_type" />
+						<field name="vendor_bank_address" />
+						<field name="vendor_bank_phone" />
+						<field name="vendor_bank_email" />
+						<field name="vendor_bank_fsc" />
+					</group>
+				</group>
+			</page>
+		</xpath>
+
+            </field>
+        </record>
+    </data>
+</openerp>
