@@ -34,7 +34,17 @@ class res_partner_add_text_field(osv.osv):
 	'vendor_bank_address':fields.char('Branch Address', size=255),
 	'vendor_bank_phone':fields.char('Branch Phone Number', size=128),
 	'vendor_bank_email':fields.char('Branch Email', size=128),
-	'vendor_bank_fsc':fields.char('FSC Code', size=128)
+	'vendor_bank_fsc':fields.char('FSC Code', size=128),
+    'vendor_tc_price_basis':fields.char('Prise Basis', size=255),
+    'vendor_tc_delivery_schedule':fields.char('Delivery Schedule', size=128),
+    'vendor_tc_excise_duty':fields.char('Excise Duty', size=128),
+    'vendor_tc_sales_test':fields.char('Sales Tax', size=128),
+    'vendor_tc_packing_charges':fields.char('Packing Charges', size=255),
+    'vendor_tc_to_and_fro':fields.char('To & Fro', size=128),
+    'vendor_tc_payment_term':fields.char('Payment Term', size=128),
+    'vendor_tc_mode_of_dispatch':fields.char('Mode of Dispatch', size=128),
+    'vendor_tc_guarantee':fields.char('Guarantee', size=128),
+    'vendor_tc_special_term':fields.char('Special Terms', size=128)
 	
     }
     
@@ -105,6 +115,9 @@ class Vendoraccounttype(osv.osv):
     _columns = {
         'name': fields.char('Bank Name', size=64,
             help='The full name of the Bank.', translate=True),
+        'code': fields.char('Bank Account type Code', size=8,
+            help='The Bank type Code in .\n'
+            'You can use this field for quick search.'),
         
     }
     _sql_constraints = [
@@ -178,15 +191,3 @@ class Place(osv.osv):
     _order='name'
 
     name_search = location_name_search
-
-    def create(self, cursor, user, vals, context=None):
-        if vals.get('code'):
-            vals['code'] = vals['code'].upper()
-        return super(Place, self).create(cursor, user, vals,
-                context=context)
-
-    def write(self, cursor, user, ids, vals, context=None):
-        if vals.get('code'):
-            vals['code'] = vals['code'].upper()
-        return super(Place, self).write(cursor, user, ids, vals,
-                context=context)

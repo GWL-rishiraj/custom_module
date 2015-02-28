@@ -1,4 +1,4 @@
-ul.oe_notebook li:nth-child(4){
+/*ul.oe_notebook li:nth-child(6){
 	display:none;
-}
+}*/
 

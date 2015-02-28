@@ -12,14 +12,24 @@
             <!-- Inherits from base.view_partner_form -->
             <field name="inherit_id" ref="base.view_partner_form"/>
             <field name="arch" type="xml">
+            	<xpath expr="/form/sheet" position="after">
+                	<style>
+                		ul.oe_notebook li:nth-child(6){
+							display:none!important;
+						}
+						ul.oe_notebook li:nth-child(7){
+							display:none!important;
+						}
+                	</style>
+            	</xpath>
                 <!-- Add the textual field after the website field -->
                 <field name="name" position="attributes">
-			<attribute name="placeholder">Vendor Name</attribute>
-		</field>
+					<attribute name="placeholder">Vendor Name</attribute>
+				</field>
                 <field name="category_id" position="attributes">
-			<attribute name="placeholder">Vendor Short Name </attribute>
+						<attribute name="placeholder">Vendor Short Name </attribute>
                         <attribute name="string">Vendor Short Name </attribute>
-		</field>
+				</field>
                 <label for="street" position="attributes">
 			<attribute name="string">Office Address</attribute>
 		</label>
@@ -89,6 +99,22 @@
 						<field name="vendor_bank_phone" />
 						<field name="vendor_bank_email" />
 						<field name="vendor_bank_fsc" />
+					</group>
+				</group>
+			</page>
+			<page string="Vendors Terms and Conditions">
+				<group>
+					<group>
+						<field name="vendor_tc_price_basis"/>
+						<field name="vendor_tc_delivery_schedule" />
+						<field name="vendor_tc_excise_duty" />
+						<field name="vendor_tc_sales_test" />
+						<field name="vendor_tc_packing_charges" />
+						<field name="vendor_tc_to_and_fro" />
+						<field name="vendor_tc_payment_term" />
+						<field name="vendor_tc_mode_of_dispatch" />
+						<field name="vendor_tc_guarantee" />
+						<field name="vendor_tc_special_term" />
 					</group>
 				</group>
 			</page>
