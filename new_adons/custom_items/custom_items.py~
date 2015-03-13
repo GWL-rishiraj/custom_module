@@ -16,36 +16,14 @@ class custom_items(osv.osv):
     'item_specification': ''
   }
   
-  def onchange_subgroup(self, cr, user, ids, item_subgroup):
-      
-    cr.execute('SELECT code FROM x_itemsubgroup WHERE id=%s ', (item_subgroup,)) 
-    
-    group_code = ''
-    for t in cr.dictfetchall():
-        group_code = t['code']
-    
-    
-    cr.execute('SELECT count(id) as total FROM product_product WHERE item_subgroup=%s ', (item_subgroup,)) 
-    """  
-    cr.execute('SELECT default_code FROM product_product WHERE item_subgroup=%s order by item_subgroup desc limit 1', (item_subgroup,))""" 
-    
-    item_code = ''
-    for t in cr.dictfetchall():
-        item_code = t['total']
-
-    if item_code and item_code !='' :
-        group_code += '000'+str(item_code+1)
-    else :
-        group_code = str(group_code) + str('0001')
-    
-    return {'value': {'default_code':group_code}}
-        
-    
-  
   def onchange_uom(self, cursor, user, ids, uom_id, uom_po_id):
         if uom_id and uom_po_id:
-            return {'value': {'uom_po_id': uom_id}}
-        return False
+            uom_obj=self.pool.get('product.uom')
+            uom=uom_obj.browse(cursor,user,[uom_id])[0]
+            uom_po=uom_obj.browse(cursor,user,[uom_po_id])[0]
+            if uom.category_id.id != uom_po.category_id.id:
+                return {'value': {'uom_po_id': uom_id}}
+        return True
     
 
 def location_name_search(self, cr, user, name='', args=None, operator='ilike',
@@ -159,7 +137,7 @@ class Itemsubgroup(osv.osv):
     _columns = {
         'name': fields.char('Sub Group', size=64,
             help='The full name of the item sub group.', translate=True),
-        'code': fields.char('Item sub Group Code', size=8,required=True,
+        'code': fields.char('Item sub Group Code', size=8,
             help='Item sub group code.\n'),
     }
     _sql_constraints = [

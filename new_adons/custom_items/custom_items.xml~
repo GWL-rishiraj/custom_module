@@ -18,7 +18,6 @@
 						div[name="options"]{
 							display:none!important;
 						}
-	
                 	</style>
             </xpath>
             <xpath expr="/form/sheet/div[@class='oe_title']/h1" position="after">
@@ -46,9 +45,9 @@
             	<label for="description" string="Item Description"/>
                 <field name="description" string="Item Description" placeholder="describe the product characteristics..."/>
 				<label for="item_group" string="Group"/>
-				<field name="item_group" string="Group" placeholder="Group" required="True"/>
+				<field name="item_group" string="Group" placeholder="Group"/>
 				<label for="item_subgroup" string="Sub Group"/>
-				<field name="item_subgroup" string="Sub Group" placeholder="Sub Group" required="True" on_change="onchange_subgroup(item_subgroup)" />
+				<field name="item_subgroup" string="Sub Group" placeholder="Sub Group"/>
 				<label for="default_code" string="Item Code"/>
 				<field name="default_code"/>
 				<label for="uom_id" string="Unit"/>
